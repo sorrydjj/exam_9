@@ -7,7 +7,7 @@
     {% endif %}
     <p>Подпись: {{ photo.signature }}</p>
     <p>Автор: {{ photo.author }}</p>
-    <p>Альбом: <a href="">{{ photo.album }}</a></p>
+    <p>Альбом: <a href="{% url 'webapp:album_detail' photo.author.pk %}">{{ photo.album.name }}</a></p>
     <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
     <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
 {% endblock %}

@@ -22,11 +22,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 {% block nav %}{% endblock %}
-            <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'webapp:index' %}">На главную</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'webapp:photo_create' %}">Создать фото</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'webapp:album_create' %}">Создать альбом</a>
                 </li>
             </ul>
         </div>

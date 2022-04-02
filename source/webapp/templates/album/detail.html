@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Альбом</h2>
+    <p>Название: {{ album.name }}</p>
+    <p>Описание: {{ album.description }}</p>
+    <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
+    <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+    <h2>Фотографии Альбома</h2>
+    {% for photo in photo_list %}
+        <div style="border: 2px solid black; max-width: 600px; margin-bottom: 20px; padding-left: 15px;border-radius: 33px">
+            {% if photo.photo %}
+                <img src="{{ photo.photo.url }}" alt="photo avatar">
+            {% endif %}
+            <p>Подпись: {{ photo.signature }}</p>
+            <p>Автор: {{ photo.author }}</p>
+            <p><a href="{% url "webapp:photo_update" photo.pk %}">Редактировать</a></p>
+            <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+        </div>
+    {% endfor %}
+
+{% endblock %}

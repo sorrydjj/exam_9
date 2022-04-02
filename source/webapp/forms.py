@@ -10,6 +10,12 @@ class PhotoForm(forms.ModelForm):
             "private": 'Сделать приватным'
         }
 
+    def __init__(self, *args, **kwargs):
+        album = kwargs.pop('album')
+        super().__init__(*args, **kwargs)
+        self.fields['album'].queryset = album
+
+
 class AlbumForm(forms.ModelForm):
     class Meta:
         model = Album

@@ -5,8 +5,9 @@ from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from secrets import token_urlsafe
 
-from webapp.models import Photo
+from webapp.models import Photo, Album
 from webapp.forms import PhotoForm
+
 
 
 class PhotoListView(ListView):
@@ -26,6 +27,11 @@ class PhotoCreateView(CreateView):
     template_name = "phote/create.html"
     model = Photo
     form_class = PhotoForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['album'] = Album.objects.filter(author=self.request.user)
+        return kwargs
 
     def form_valid(self, form):
         photo = form.save(commit=False)
