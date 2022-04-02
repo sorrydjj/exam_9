@@ -47,3 +47,22 @@ class Album(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     private = models.BooleanField(default=False, verbose_name='Статус')
+
+
+class PhotoFavorites(models.Model):
+    author = models.ForeignKey(get_user_model(), related_name="photo_favorite", on_delete=models.CASCADE)
+    photo = models.ForeignKey("webapp.Photo", related_name="favorite", on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "photo_favorite"
+        verbose_name = "Избранное фото"
+        verbose_name_plural = "Избранные фото"
+
+class AlbumFavorites(models.Model):
+    author = models.ForeignKey(get_user_model(), related_name="album_favorite", on_delete=models.CASCADE)
+    album = models.ForeignKey("webapp.Album", related_name="favorites", on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = "album_favorite"
+        verbose_name = "Избранный альбом"
+        verbose_name_plural = "Избранные альбомы"
