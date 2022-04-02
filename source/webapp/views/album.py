@@ -16,9 +16,6 @@ class AlbumDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         photo = Photo.objects.filter(album=self.kwargs.get("pk"))
         context["photo_list"] = photo
-        print(context["photo_list"])
-        for i in context["photo_list"]:
-            print(i.pk)
         return context
 
 class AlbumCreateView(LoginRequiredMixin, CreateView):

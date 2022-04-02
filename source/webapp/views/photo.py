@@ -1,8 +1,9 @@
 import uuid
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from secrets import token_urlsafe
 
@@ -74,3 +75,12 @@ class PhotoDeleteView(PermissionRequiredMixin, DeleteView):
 
     def has_permission(self):
         return self.get_object().author == self.request.user or super().has_permission()
+
+
+class PhotoTokenView(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        token = kwargs.get("token")
+        photo = Photo.objects.get(token=token)
+        context["photo"] = photo
+        return render(request, "phote/token_view.html", context)

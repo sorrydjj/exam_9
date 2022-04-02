@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     <h2>Фотография</h2>
     {% if photo.photo %}
@@ -7,6 +7,13 @@
     {% endif %}
     <p>Подпись: {{ photo.signature }}</p>
     <p>Автор: {{ photo.author }}</p>
+    {% if user == photo.author %}
+        <button type="button" id="buttons" onclick="onClick(event)" data-url="{% url "webapp:token_view" photo.token %}">Показать токен</button>
+    {% endif %}
+
+    <div id="tokens">
+
+    </div>
     <p>Альбом: <a href="{% url 'webapp:album_detail' photo.author.pk %}">{{ photo.album.name }}</a></p>
     {% if perms.webapp.change_photo or user == photo.author %}
         <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
@@ -14,4 +21,8 @@
     {% if perms.webapp.delete_photo or user == photo.author %}
         <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
     {% endif %}
+
+    {% block scripts %}
+        <script src="{% static 'js/token.js' %}"></script>
+    {% endblock %}
 {% endblock %}

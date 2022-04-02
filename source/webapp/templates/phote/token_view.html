@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Фотография</h2>
+    {% if photo.photo %}
+        <img src="{{ photo.photo.url }}" alt="photo avatar">
+    {% endif %}
+    <p>Подпись: {{ photo.signature }}</p>
+    <p>Автор: {{ photo.author }}</p>
+    <p>Альбом: {{ photo.album.name }}</p>
+
+{% endblock %}
