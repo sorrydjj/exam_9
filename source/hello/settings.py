@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Custom app
-    "accounts"
+    'accounts',
+    'webapp'
 
     #Lib app
 ]

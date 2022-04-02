@@ -1,0 +1,28 @@
+{% extends "bases.html" %}
+
+{% block nav %}
+    {% if user_object == user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:user_update' %}">Редактировать</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:change_password' %}">Изменить пароль</a>
+        </li>
+    {% endif %}
+{% endblock nav %}
+
+{% block content %}
+    <h1>Профиль пользователя {{ user.username }}</h1>
+    <p><strong>Почта: </strong>{{ user.email|default:"Не указана"}}</p>
+    <p><strong>Дата рождения: </strong>{{ user.profile.birth_date|date:'d.m.Y'|default:"Не указана" }}</p>
+    <p><strong>Фамилия: </strong>{{ user.last_name|default:"Не указана" }}</p>
+    <p><strong>Имя: </strong>{{ user.first_name|default:"Не указанo" }}</p>
+    <p><strong>Ссылка на Git: </strong>{{ user.profile.profile_link|default:"Не указанo" }}</p>
+    <p><strong>Описание: </strong>{{ user.profile.profile_description|default:"Не указанo" }}</p>
+
+    {% if user.profile.avatar %}
+        <img src="{{ user.profile.avatar.url }}" alt="user avatar">
+    {% endif %}
+
+
+{% endblock content %}
