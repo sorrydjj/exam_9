@@ -61,12 +61,10 @@ class UserProfileView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         photo = Photo.objects.filter(author=self.object)
         album = Album.objects.filter(author=self.object)
-
         kwargs["private_photo"] = photo.filter(private=True)
         kwargs["public_photo"] = photo.filter(private=False)
         kwargs['private_album'] = album.filter(private=True)
         kwargs['public_album'] = album.filter(private=False)
-
         return super(UserProfileView, self).get_context_data(**kwargs)
 
 

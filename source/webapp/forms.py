@@ -11,9 +11,9 @@ class PhotoForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        album = kwargs.pop('album')
+        albums = kwargs.pop('album')
         super().__init__(*args, **kwargs)
-        self.fields['album'].queryset = album
+        self.fields['album'].queryset = albums
 
 
 class AlbumForm(forms.ModelForm):

@@ -44,12 +44,15 @@
                         <a class="nav-link" href="{% url 'accounts:logout' %}">Выход</a>
                     </li>
                 {% endif %}
+            {% if user.is_authenticated  %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'webapp:photo_create' %}">Создать фото</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'webapp:album_create' %}">Создать альбом</a>
-                </li>
+                        <a class="nav-link" href="{% url 'webapp:photo_create' %}">Создать фото</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'webapp:album_create' %}">Создать альбом</a>
+                    </li>
+            {% endif %}
+
             </ul>
         </div>
     </div>

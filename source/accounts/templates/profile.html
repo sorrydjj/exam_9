@@ -18,15 +18,19 @@
     <div style="display: flex">
         <div style="flex-direction: row; display: flex">
             <div class="blocks">
-                <h4>Открытае Фотографии</h4>
+                <h4>Публичные Фотографии</h4>
                 {% if public_photo %}
                     {% for photo in public_photo %}
                         {% if photo.photo %}
                             <img src="{{ photo.photo.url }}" width="150" height="151" alt="photo avatar">
                         {% endif %}
                         <p>{{ photo.signature }}</p>
-                        <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
-                        <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                        {% if perms.webapp.change_photo or user == photo.author %}
+                            <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
+                        {% endif %}
+                        {% if perms.webapp.delete_photo or user == photo.author %}
+                            <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <p>Отсутвуют</p>
@@ -34,42 +38,53 @@
 
             </div>
             <div class="blocks">
-                <h4>Закрытые Фотографии</h4>
+                <h4>Приватные Фотографии</h4>
                 {% if private_photo %}
                     {% for photo in private_photo %}
                         {% if photo.photo %}
                             <img src="{{ photo.photo.url }}" width="150" height="151" alt="photo avatar">
                         {% endif %}
                         <p>{{ photo.signature }}</p>
-                        <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
-                        <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                        {% if perms.webapp.change_photo or user == photo.author %}
+                            <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
+                        {% endif %}
+                        {% if perms.webapp.delete_photo or user == photo.author %}
+                            <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <p>Отсутвуют</p>
                 {% endif %}
             </div>
             <div class="blocks">
-                <h4>Открытые Альбомы</h4>
+                <h4>Публичные альбомы Альбомы</h4>
                 {% if public_album %}
                     {% for album in public_album %}
                         <p>Название: {{ album.name }}</p>
                         <p>Описание: {{ album.description }}</p>
-                        <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
-                        <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
-                        <p style="border-bottom: 2px solid black; width: 200px"></p>
+                        {% if perms.webapp.change_album or user == album.author %}
+                            <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
+                        {% endif %}
+                        {% if perms.webapp.delete_album or user == album.author %}
+                            <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <p>Отсутвуют</p>
                 {% endif %}
             </div>
             <div class="blocks">
-                <h4>Закрытые Альбомы</h4>
+                <h4>Приватные Альбомы</h4>
                 {% if private_album %}
                     {% for album in private_album %}
                         <p>Название: {{ album.name }}</p>
                         <p>Описание: {{ album.description }}</p>
-                        <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
-                        <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+                        {% if perms.webapp.change_album or user == album.author %}
+                            <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
+                        {% endif %}
+                        {% if perms.webapp.delete_album or user == album.author %}
+                            <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <p>Отсутвуют</p>

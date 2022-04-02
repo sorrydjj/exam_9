@@ -4,13 +4,20 @@
     {% for photo in photos %}
         <div style="border: 2px solid black; max-width: 600px; margin-bottom: 20px; padding-left: 15px;border-radius: 33px">
             {% if photo.photo %}
-                <img src="{{ photo.photo.url }}" width="200" height="201"  alt="photo avatar">
+                <img src="{{ photo.photo.url }}" width="200" height="201" alt="photo avatar">
             {% endif %}
             <p>Подпись: {{ photo.signature }}</p>
             <p>Автор: {{ photo.author }}</p>
-            <p>Альбом: <a href="{% url 'webapp:album_detail' photo.album.pk %}">{{ photo.album.name }}</a></p>
-            <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
-            <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+            {% if photo.album.private == False %}
+                <p>Альбом: <a href="{% url 'webapp:album_detail' photo.album.pk %}">{{ photo.album.name }}</a></p>
+            {% endif %}
+            <p><a href="{% url 'webapp:photo_detail' photo.pk %}">Подробно...</a></p>
+            {% if perms.webapp.change_photo or user == photo.author %}
+                <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
+            {% endif %}
+            {% if perms.webapp.delete_photo or user == photo.author %}
+                <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock content %}
