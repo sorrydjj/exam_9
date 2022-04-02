@@ -5,5 +5,5 @@ function onClick(event) {
     let divs = document.getElementById("tokens")
     let btn = document.getElementById("buttons")
     btn.remove()
-    divs.innerHTML += "<p>Ваша ссылка : " + newUrl +"</p>"
+    divs.innerHTML += "<p>Ваша ссылка: <a href=' " + newUrl + "'>" + newUrl + "</a></p>"
 }
