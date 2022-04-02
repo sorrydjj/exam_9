@@ -23,7 +23,8 @@ class Photo(models.Model):
                               null=True,
                               blank=True,
                               related_name='photos')
-    private = models.BooleanField(default=False, verbose_name='Статус')
+    private = models.BooleanField(default=False,
+                                  verbose_name='Статус')
     token = models.UUIDField(null=True,
                              blank=True,
                              verbose_name='Токен')

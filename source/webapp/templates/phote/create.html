@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block nav %}{% endblock %}
+{% block content %}
+    <h1>Создать Фото</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% include "partial/form.html" with button_text="Создать" %}
+    </form>
+
+{% endblock %}>
