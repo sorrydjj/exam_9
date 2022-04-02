@@ -122,8 +122,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-# LOGIN_REDIRECT_URL = /login url/
-# LOGOUT_REDIRECT_URL = /logout url/
+LOGIN_REDIRECT_URL = "webapp:index"
+LOGOUT_REDIRECT_URL = "webapp:index"
 
 LOGIN_URL = "accounts:login"
 

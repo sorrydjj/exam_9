@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, UsernameField, UserChangeForm
 
-from accounts.models import Profile
 
 User = get_user_model()
 
@@ -28,12 +27,6 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("email", "first_name", "last_name")
-
-
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ("avatar", "birth_date", "profile_link", "profile_description")
 
 
 class PasswordChangeForm(forms.ModelForm):

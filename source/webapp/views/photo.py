@@ -13,8 +13,10 @@ from webapp.forms import PhotoForm
 class PhotoListView(ListView):
     template_name = 'phote/index.html'
     model = Photo
-    context_object_name = "photos"
-    ordering = "-created_at"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        kwargs["photos"] = Photo.objects.filter(private=False).order_by("-created_at")
+        return kwargs
 
 
 class PhotoDetailView(DetailView):

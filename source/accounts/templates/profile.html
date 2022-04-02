@@ -3,9 +3,6 @@
 {% block nav %}
     {% if user_object == user %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:user_update' %}">Редактировать</a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{% url 'accounts:change_password' %}">Изменить пароль</a>
         </li>
     {% endif %}
@@ -13,16 +10,72 @@
 
 {% block content %}
     <h1>Профиль пользователя {{ user.username }}</h1>
-    <p><strong>Почта: </strong>{{ user.email|default:"Не указана"}}</p>
+    <p><strong>Почта: </strong>{{ user.email|default:"Не указана" }}</p>
     <p><strong>Дата рождения: </strong>{{ user.profile.birth_date|date:'d.m.Y'|default:"Не указана" }}</p>
     <p><strong>Фамилия: </strong>{{ user.last_name|default:"Не указана" }}</p>
     <p><strong>Имя: </strong>{{ user.first_name|default:"Не указанo" }}</p>
-    <p><strong>Ссылка на Git: </strong>{{ user.profile.profile_link|default:"Не указанo" }}</p>
-    <p><strong>Описание: </strong>{{ user.profile.profile_description|default:"Не указанo" }}</p>
 
-    {% if user.profile.avatar %}
-        <img src="{{ user.profile.avatar.url }}" alt="user avatar">
-    {% endif %}
+    <div style="display: flex">
+        <div style="flex-direction: row; display: flex">
+            <div class="blocks">
+                <h4>Открытае Фотографии</h4>
+                {% if public_photo %}
+                    {% for photo in public_photo %}
+                        {% if photo.photo %}
+                            <img src="{{ photo.photo.url }}" width="150" height="151" alt="photo avatar">
+                        {% endif %}
+                        <p>{{ photo.signature }}</p>
+                        <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
+                        <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>Отсутвуют</p>
+                {% endif %}
 
+            </div>
+            <div class="blocks">
+                <h4>Закрытые Фотографии</h4>
+                {% if private_photo %}
+                    {% for photo in private_photo %}
+                        {% if photo.photo %}
+                            <img src="{{ photo.photo.url }}" width="150" height="151" alt="photo avatar">
+                        {% endif %}
+                        <p>{{ photo.signature }}</p>
+                        <p><a href="{% url 'webapp:photo_update' photo.pk %}">Редактировать</a></p>
+                        <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>Отсутвуют</p>
+                {% endif %}
+            </div>
+            <div class="blocks">
+                <h4>Открытые Альбомы</h4>
+                {% if public_album %}
+                    {% for album in public_album %}
+                        <p>Название: {{ album.name }}</p>
+                        <p>Описание: {{ album.description }}</p>
+                        <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
+                        <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+                        <p style="border-bottom: 2px solid black; width: 200px"></p>
+                    {% endfor %}
+                {% else %}
+                    <p>Отсутвуют</p>
+                {% endif %}
+            </div>
+            <div class="blocks">
+                <h4>Закрытые Альбомы</h4>
+                {% if private_album %}
+                    {% for album in private_album %}
+                        <p>Название: {{ album.name }}</p>
+                        <p>Описание: {{ album.description }}</p>
+                        <p><a href="{% url 'webapp:album_update' album.pk %}">Редактировать</a></p>
+                        <p><a href="{% url 'webapp:album_delete' album.pk %}">Удалить</a></p>
+                    {% endfor %}
+                {% else %}
+                    <p>Отсутвуют</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
 {% endblock content %}
