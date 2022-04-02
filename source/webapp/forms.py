@@ -1,6 +1,6 @@
 from django import forms
 
-from webapp.models import Photo, Album
+from webapp.models import Photo, Album, PhotoFavorites, AlbumFavorites
 
 class PhotoForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,14 @@ class AlbumForm(forms.ModelForm):
         labels = {
             "private": 'Сделать приватным'
         }
+
+
+class PhotoFavoriteForm(forms.ModelForm):
+    class Meta:
+        model = PhotoFavorites
+        fields = ("author", "photo")
+
+class AlbumFavoriteForm(forms.ModelForm):
+    class Meta:
+        model = AlbumFavorites
+        fields = ("author", "album")

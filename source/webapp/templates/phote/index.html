@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     {% for photo in photos %}
         <div style="border: 2px solid black; max-width: 600px; margin-bottom: 20px; padding-left: 15px;border-radius: 33px">
@@ -18,6 +18,15 @@
             {% if perms.webapp.delete_photo or user == photo.author %}
                 <p><a href="{% url 'webapp:photo_delete' photo.pk %}">Удалить</a></p>
             {% endif %}
+        {% if photo.favorite %}
+            <button type="button" style="background: green" data-pk="{{ photo.pk }}" id="buttons-add" onclick="onClickPhoto(event)" data-url="{% url "webapp:favorite_photo_add" photo.pk %}">Добавить в избранное</button>
+            {% else %}
+            <button type="button" style="background: red" id="buttons-delete" onclick="onClickPhoto(event)" data-url="{% url "webapp:favorite_photo_delete" photo.pk %}">Удалить из избранных</button>
+        {% endif %}
+
         </div>
     {% endfor %}
+    {% block scripts %}
+        <script src="{% static 'js/favorite.js' %}"></script>
+    {% endblock %}
 {% endblock content %}
